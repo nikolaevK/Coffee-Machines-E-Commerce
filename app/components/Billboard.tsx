@@ -6,7 +6,7 @@ interface BillboardComponentInterface {
 }
 
 export default function Billboard({
-  billboard: { imageUrl, id, label },
+  billboard: { imageUrl },
 }: BillboardComponentInterface) {
   return (
     <div className="overflow-hidden w-full mt-[-2px]">

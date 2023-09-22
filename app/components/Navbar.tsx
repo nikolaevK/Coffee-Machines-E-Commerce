@@ -2,7 +2,7 @@ import getCategories from "../actions/getCategories";
 import NavRoutes from "./NavRoutes";
 // Server Component
 
-// Doesnt cache
+// Doesn't cache
 export const revalidate = 0;
 
 export default async function Navbar() {
