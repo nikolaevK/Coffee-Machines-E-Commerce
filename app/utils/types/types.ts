@@ -6,8 +6,12 @@ export interface BillboardInterface {
 
 export interface CategoryInterface {
   id: string;
+  storeId: string;
+  billboardId: string;
   name: string;
-  billboard: BillboardInterface;
+  createdAt: string;
+  updatedAt: string;
+  products: ProductInterface[];
 }
 
 export interface ProductInterface {
@@ -21,7 +25,24 @@ export interface ProductInterface {
   colorId: string;
   createdAt: string;
   updatedAt: string;
-  color: Record<string, string>;
-  images: Array<Record<string, string>>;
+  color: ColorInterface;
+  images: ImagesInterface[];
   category: Record<string, string>;
+}
+
+interface ColorInterface {
+  id: string;
+  storeId: string;
+  name: string;
+  value: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ImagesInterface {
+  id: string;
+  productId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
 }

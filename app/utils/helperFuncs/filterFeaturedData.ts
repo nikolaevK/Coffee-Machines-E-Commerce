@@ -2,7 +2,7 @@ import { ProductInterface } from "../types/types";
 
 type Value = "category" | "url";
 
-// Extracts Category that isFeatured and its name
+// Extracts Category that isFeatured. Name of category and Image url
 export function filterFeaturedData(data: ProductInterface[]) {
   const filteredData = data.reduce(
     (data: Array<Record<Value, string>>, product: ProductInterface) => {

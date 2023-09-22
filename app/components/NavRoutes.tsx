@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { categoryInterface } from "../utils/types/types";
+import { CategoryInterface } from "../utils/types/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import Container from "./Container";
 
 interface NavRoutesInterface {
-  categories: categoryInterface[];
+  categories: { name: string; id: string }[];
 }
 
 export default function NavRoutes({ categories }: NavRoutesInterface) {

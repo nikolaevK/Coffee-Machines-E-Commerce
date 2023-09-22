@@ -11,7 +11,7 @@ export default function FeaturedProducts({
 }: FeaturedProductsInterface) {
   return (
     <div className="bg-white h-full ">
-      <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 md:min-w-full lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Coffee, Accessories
         </h2>
