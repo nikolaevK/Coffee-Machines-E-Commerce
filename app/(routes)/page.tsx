@@ -1,6 +1,8 @@
 import getBillboard from "../actions/GetBillboard";
+import getHomeBillboard from "../actions/GetHomeBillboard";
 import getProducts from "../actions/GetProducts";
 import Billboard from "../components/Billboard";
+import CategoryBillboard from "../components/CategoryBillboard";
 import Container from "../components/Container";
 import FeaturedProducts from "../components/FeaturedProducts";
 import { filterFeaturedData } from "../utils/helperFuncs/filterFeaturedData";
@@ -20,6 +22,10 @@ export default async function HomePage() {
       </div>
       <div>
         <FeaturedProducts featuredProducts={products} />
+      </div>
+      <div>
+        {/* @ts-expect-error Async Server Component */}
+        <CategoryBillboard />
       </div>
     </Container>
   );

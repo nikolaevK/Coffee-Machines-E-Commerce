@@ -15,7 +15,7 @@ export default function FeaturedProducts({
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Coffee, Accessories
         </h2>
-        <div className="mt-2 h-52 md:h-72 overflow-auto flex flex-row justify-items-center gap-2">
+        <div className="mt-2 h-52 md:h-54 overflow-auto flex flex-row justify-items-center gap-2">
           {featuredProducts.map((product: FeaturedProduct, id) => (
             <div key={id} className="group relative">
               <div className="h-40 w-40 aspect-1 rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 hover:cursor-pointer lg:h-44 lg:w-44">

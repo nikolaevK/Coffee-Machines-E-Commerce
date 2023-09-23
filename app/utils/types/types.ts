@@ -4,6 +4,17 @@ export interface BillboardInterface {
   imageUrl: string;
 }
 
+export interface HomeBillboardInterface {
+  id: string;
+  storeId: string;
+  categoryName: string;
+  imageUrl: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CategoryInterface {
   id: string;
   storeId: string;
