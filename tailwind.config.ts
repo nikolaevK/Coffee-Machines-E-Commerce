@@ -1,4 +1,3 @@
-import type { Config } from "tailwindcss";
 const defaultTheme = require("tailwindcss/defaultTheme");
 import aspectRatio from "@tailwindcss/aspect-ratio";
 

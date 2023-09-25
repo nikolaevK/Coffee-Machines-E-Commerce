@@ -11,9 +11,5 @@ export default async function Navbar() {
   // gets necessary data for NavRoutes
   const categories = filterNavLinksCategory(data);
 
-  return (
-    <header>
-      <NavRoutes categories={categories} />
-    </header>
-  );
+  return <header>{categories && <NavRoutes categories={categories} />}</header>;
 }
