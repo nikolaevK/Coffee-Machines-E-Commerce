@@ -9,27 +9,23 @@ import { filterFeaturedData } from "../utils/helperFuncs/filterFeaturedData";
 export const revalidate = 0;
 
 export default async function HomePage() {
-  const billboard = await getBillboard("0af0764b-68b7-4a95-955d-e473834a9cc5");
-
+  const billboard = await getBillboard("a0eaea7f-8a1b-4e11-b0ae-66d6b0189ffb");
   const data = await getProducts();
-  const categories = filterFeaturedData(data);
+
+  const categories = data ? filterFeaturedData(data) : [];
 
   return (
     <Container>
-      {categories && billboard && (
-        <>
-          <div>
-            <Billboard billboard={billboard} />
-          </div>
-          <div>
-            <FeaturedProducts featuredCategories={categories} />
-          </div>
-          <div>
-            {/* @ts-expect-error Async Server Component */}
-            <CategoryBillboard />
-          </div>
-        </>
-      )}
+      <>
+        <div>{billboard && <Billboard billboard={billboard} />}</div>
+        <div>
+          <FeaturedProducts featuredCategories={categories} />
+        </div>
+        <div>
+          {/* @ts-expect-error Async Server Component */}
+          <CategoryBillboard />
+        </div>
+      </>
     </Container>
   );
 }

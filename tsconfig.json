@@ -11,6 +11,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    // Error handling in Actions with switch cases
+    "useUnknownInCatchVariables": false,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [

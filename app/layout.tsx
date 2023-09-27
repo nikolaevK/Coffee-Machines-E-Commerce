@@ -19,7 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {/* @ts-expect-error Async Server Component */}
-        <Navbar /> {children}
+        <Navbar />
+        {children}
       </body>
     </html>
   );
