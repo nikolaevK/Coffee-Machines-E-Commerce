@@ -7,7 +7,7 @@ export interface BillboardInterface {
 export interface HomeBillboardInterface {
   id: string;
   storeId: string;
-  categoryName: string;
+  categories?: CategoryInterface[];
   imageUrl: string;
   title: string;
   description: string;
@@ -19,10 +19,12 @@ export interface CategoryInterface {
   id: string;
   storeId: string;
   billboardId: string;
+  homeBillboard: HomeBillboardInterface;
   name: string;
   createdAt: string;
   updatedAt: string;
   products: ProductInterface[];
+  homeBillboardId: string;
 }
 
 export interface ProductInterface {
