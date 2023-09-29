@@ -54,8 +54,8 @@ export default async function CategoryBillboard() {
               </Link>
             </div>
             <Link href={`/category/${category.id}`}>
-              <div className="flex-auto md:flex md:flex-row hover:cursor-pointer">
-                <div className="md:w-[50%] flex flex-col justify-center items-center py-20 md:py-0 md:p-0 gap-6 bg-[#2E2522] text-white">
+              <div className="grid grid-flow-row auto-rows-[1fr] md:grid-flow-col md:auto-cols-[1fr] hover:cursor-pointer">
+                <div className="w-full flex flex-col justify-center items-center py-20 md:py-0 md:p-0 gap-6 bg-[#2E2522] text-white">
                   <span className="text:2xl md:text-4xl xl:text-6xl font-bold text-center w-[40%] md:w-[50%] lg:w-[60%]">
                     {category.title}
                   </span>
@@ -64,7 +64,7 @@ export default async function CategoryBillboard() {
                     {category.description}
                   </span>
                 </div>
-                <div className="md:w-[50%]">
+                <div className="w-full">
                   <img
                     src={category?.imageUrl}
                     alt="img"
