@@ -79,6 +79,15 @@ export default async function CategoryBillboard() {
               <Subcategories subcategories={category.subcategories} />
             )}
             <ProductList products={category.products} />
+            <div className="text-center my-14  text-white">
+              <Link
+                href={`category/${category.id}`}
+                className="bg-[#2E2522] text-xs px-4 py-2 md:px-6 md:py-3 md:text-sm font-semibold"
+              >
+                SHOP ALL {category.name.toUpperCase()} &#40;
+                {category.products.length}&#41;
+              </Link>
+            </div>
           </section>
         );
       })}

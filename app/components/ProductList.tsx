@@ -32,8 +32,8 @@ export default function ProductList({ products }: ProductListInterface) {
                   {product.color.name}
                 </p>
               </div>
-              <p className="text-sm font-medium text-gray-900">
-                {product.price}
+              <p className="text-sm text-gray-900 font-bold">
+                ${product.price}
               </p>
             </div>
           </div>
