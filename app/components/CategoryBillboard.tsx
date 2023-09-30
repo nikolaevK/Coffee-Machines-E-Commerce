@@ -6,6 +6,7 @@ import {
   HomeBillboardInterface,
 } from "../utils/types/types";
 import ProductList from "./ProductList";
+import Subcategories from "./Subcategories";
 
 export default async function CategoryBillboard() {
   const data = await getCategories();
@@ -29,6 +30,7 @@ export default async function CategoryBillboard() {
         title: homeBillboard!.title,
         description: homeBillboard!.description,
         imageUrl: homeBillboard!.imageUrl,
+        subcategories: homeBillboard!.subcategories,
       };
       accumulator.push(mergedObject);
       return accumulator;
@@ -73,6 +75,9 @@ export default async function CategoryBillboard() {
                 </div>
               </div>
             </Link>
+            {category.subcategories && (
+              <Subcategories subcategories={category.subcategories} />
+            )}
             <ProductList products={category.products} />
           </section>
         );

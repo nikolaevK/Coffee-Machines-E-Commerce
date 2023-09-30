@@ -8,9 +8,24 @@ export interface HomeBillboardInterface {
   id: string;
   storeId: string;
   categories?: CategoryInterface[];
+  subcategories: SubcategoriesInterface;
   imageUrl: string;
   title: string;
   description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SubcategoriesInterface {
+  id: string;
+  storeId: string;
+  homeBillboardId: string;
+  subcategory1: string;
+  subcategory2: string;
+  subcategory3: string;
+  description1: string;
+  description2: string;
+  description3: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -19,7 +34,6 @@ export interface CategoryInterface {
   id: string;
   storeId: string;
   billboardId: string;
-  homeBillboard: HomeBillboardInterface;
   name: string;
   createdAt: string;
   updatedAt: string;
