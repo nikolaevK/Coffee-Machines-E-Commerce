@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+import forms from "@tailwindcss/forms";
 import aspectRatio from "@tailwindcss/aspect-ratio";
 
 module.exports = {
@@ -17,6 +18,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      gridTemplateRows: {
+        "[auto,auto,1fr]": "auto auto 1fr",
+      },
       keyframes: {
         animationForward: {
           from: { transform: "translateX(-100%)" },
@@ -28,5 +32,5 @@ module.exports = {
       },
     },
   },
-  plugins: [aspectRatio],
+  plugins: [aspectRatio, forms],
 };
