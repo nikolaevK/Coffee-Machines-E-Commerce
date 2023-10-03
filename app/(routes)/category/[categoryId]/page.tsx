@@ -17,9 +17,11 @@ export default async function category({
 
   return (
     <Container>
-      <div className="px-6 py-2 h-screen">
-        <h1 className="font-bold text-3xl">{category.name}</h1>
-        <CategoryFilters products={category.products} />
+      <div className="px-2 md:px-6 py-2 h-screen">
+        <CategoryFilters
+          products={category.products}
+          categoryName={category.name}
+        />
       </div>
     </Container>
   );

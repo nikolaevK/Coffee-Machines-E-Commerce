@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -7,7 +7,6 @@ import {
   FunnelIcon,
   MinusIcon,
   PlusIcon,
-  Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import ProductList from "@/app/components/ProductList";
 import { ProductInterface } from "@/app/utils/types/types";
@@ -19,50 +18,18 @@ const sortOptions = [
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
 ];
-const subCategories = [
-  { name: "Totes", href: "#" },
-  { name: "Backpacks", href: "#" },
-  { name: "Travel Bags", href: "#" },
-  { name: "Hip Bags", href: "#" },
-  { name: "Laptop Sleeves", href: "#" },
-];
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
-    ],
-  },
-];
+const filters = {
+  id: "color",
+  name: "Color",
+  options: [
+    { value: "white", label: "White", checked: false },
+    { value: "beige", label: "Beige", checked: false },
+    { value: "blue", label: "Blue", checked: false },
+    { value: "brown", label: "Brown", checked: false },
+    { value: "green", label: "Green", checked: false },
+    { value: "purple", label: "Purple", checked: false },
+  ],
+};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -70,12 +37,24 @@ function classNames(...classes: string[]) {
 
 interface CategoryFiltersInterface {
   products: ProductInterface[];
+  categoryName: string;
 }
 
 export default function CategoryFilters({
   products,
+  categoryName,
 }: CategoryFiltersInterface) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [colorFilters, setColorFilters] = useState(filters);
+
+  function onColorFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value);
+    filters.options.forEach((filter) => {
+      if (filter.value === e.target.value) filter.checked = e.target.checked;
+    });
+
+    setColorFilters({ ...filters });
+  }
 
   return (
     <div className="bg-white">
@@ -126,63 +105,62 @@ export default function CategoryFilters({
 
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
-                    {filters.map((section) => (
-                      <Disclosure
-                        as="div"
-                        key={section.id}
-                        className="border-t border-gray-200 px-4 py-6"
-                      >
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">
-                                  {section.name}
-                                </span>
-                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                    <MinusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  ) : (
-                                    <PlusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  )}
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div
-                                    key={option.value}
-                                    className="flex items-center"
+                    <Disclosure
+                      as="div"
+                      key={colorFilters.id}
+                      className="border-t border-gray-200 px-4 py-6"
+                    >
+                      {({ open }) => (
+                        <>
+                          <h3 className="-mx-2 -my-3 flow-root">
+                            <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
+                              <span className="font-medium text-gray-900">
+                                {colorFilters.name}
+                              </span>
+                              <span className="ml-6 flex items-center">
+                                {open ? (
+                                  <MinusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <PlusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </span>
+                            </Disclosure.Button>
+                          </h3>
+                          <Disclosure.Panel className="pt-6">
+                            <div className="space-y-6">
+                              {colorFilters.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
+                                  <input
+                                    onChange={onColorFilterChange}
+                                    id={`filter-mobile-${colorFilters.id}-${optionIdx}`}
+                                    name={`${colorFilters.id}[]`}
+                                    defaultValue={option.value}
+                                    type="checkbox"
+                                    defaultChecked={option.checked}
+                                    className="h-4 w-4 rounded border-gray-300 text-[#7C4F3F] focus:ring-[#7C4F3F]"
+                                  />
+                                  <label
+                                    htmlFor={`filter-mobile-${colorFilters.id}-${optionIdx}`}
+                                    className="ml-3 min-w-0 flex-1 text-gray-500"
                                   >
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
-                    ))}
+                                    {option.label}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
@@ -190,10 +168,10 @@ export default function CategoryFilters({
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              New Arrivals
+        <main className="mx-auto px-2">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-10">
+            <h1 className="md:text-4xl font-bold tracking-tight text-gray-900">
+              {categoryName}
             </h1>
 
             <div className="flex items-center">
@@ -241,14 +219,6 @@ export default function CategoryFilters({
                   </Menu.Items>
                 </Transition>
               </Menu>
-
-              <button
-                type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -262,58 +232,54 @@ export default function CategoryFilters({
         </main>
         <div className="flex gap-8 w-full h-full">
           <form className="hidden lg:block p-4">
-            <h3 className="sr-only">Categories</h3>
-
-            {filters.map((section) => (
-              <Disclosure as="div" key={section.id} className="py-2">
-                {({ open }) => (
-                  <>
-                    <h3 className="-my-3 flow-root">
-                      <Disclosure.Button className="flex w-full items-center  bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
-                          {section.name}
-                        </span>
-                        <span className="ml-2 flex items-center">
-                          {open ? (
-                            <MinusIcon className="h-5 w-5" aria-hidden="true" />
-                          ) : (
-                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                          )}
-                        </span>
-                      </Disclosure.Button>
-                    </h3>
-                    <Disclosure.Panel className="pt-6">
-                      <div className="space-y-4">
-                        {section.options.map((option, optionIdx) => (
-                          <div key={option.value} className="flex items-center">
-                            <input
-                              id={`filter-${section.id}-${optionIdx}`}
-                              name={`${section.id}[]`}
-                              defaultValue={option.value}
-                              type="checkbox"
-                              defaultChecked={option.checked}
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label
-                              htmlFor={`filter-${section.id}-${optionIdx}`}
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              {option.label}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </Disclosure.Panel>
-                  </>
-                )}
-              </Disclosure>
-            ))}
+            <Disclosure as="div" key={colorFilters.id} className="py-2">
+              {({ open }) => (
+                <>
+                  <h3 className="-my-3 flow-root">
+                    <Disclosure.Button className="flex w-full items-center bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                      <span className="font-medium text-gray-900">
+                        {colorFilters.name}
+                      </span>
+                      <span className="ml-2 flex items-center">
+                        {open ? (
+                          <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                        ) : (
+                          <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                        )}
+                      </span>
+                    </Disclosure.Button>
+                  </h3>
+                  <Disclosure.Panel className="pt-6">
+                    <div className="space-y-4">
+                      {colorFilters.options.map((option, optionIdx) => (
+                        <div key={option.value} className="flex items-center">
+                          <input
+                            onChange={onColorFilterChange}
+                            id={`filter-${colorFilters.id}-${optionIdx}`}
+                            name={`${colorFilters.id}[]`}
+                            defaultValue={option.value}
+                            type="checkbox"
+                            defaultChecked={option.checked}
+                            className="h-4 w-4 rounded border-gray-300 text-[#7C4F3F] focus:ring-[#7C4F3F]"
+                          />
+                          <label
+                            htmlFor={`filter-${colorFilters.id}-${optionIdx}`}
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            {option.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
           </form>
           <div className="flex-1 p-4">
             <ProductList products={products} />
           </div>
         </div>
-        {/* Filters */}
       </div>
     </div>
   );
