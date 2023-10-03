@@ -66,7 +66,7 @@ export interface ColorInterface {
   updatedAt: string;
 }
 
-interface ImagesInterface {
+export interface ImagesInterface {
   id: string;
   productId: string;
   url: string;

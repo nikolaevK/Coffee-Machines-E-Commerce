@@ -6,6 +6,7 @@ import { RadioGroup } from "@headlessui/react";
 import { ProductInterface } from "@/app/utils/types/types";
 import { ColorChoiceInterface } from "../page";
 import { useRouter } from "next/navigation";
+import MobileImageSlider from "./MobileImageSlider";
 
 // const product = {
 //   name: "Basic Tee 6-Pack",
@@ -79,7 +80,6 @@ export default function ProductPage({
   colors,
 }: ProductPageInterface) {
   const router = useRouter();
-
   const product = products.find((p) => p.id === productId);
 
   if (!product) return <div>Something Went wrong...</div>;
@@ -113,7 +113,7 @@ export default function ProductPage({
                   href={`/category/${categoryId}/`}
                   className="mr-2 text-sm font-medium text-gray-500 hover:text-gray-600"
                 >
-                  Category NAme
+                  {product.category.name}
                 </a>
                 <svg
                   width={16}
@@ -141,7 +141,7 @@ export default function ProductPage({
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <div className="hidden mx-auto mt-6 max-w-2xl sm:px-6 md:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={product.images[0].url}
@@ -174,6 +174,8 @@ export default function ProductPage({
             />
           </div>
         </div>
+        {/* Mobile Image Display Component */}
+        <MobileImageSlider images={product.images} />
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -187,7 +189,7 @@ export default function ProductPage({
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">
-              {product.price}
+              ${product.price}
             </p>
 
             {/* Reviews */}
@@ -200,9 +202,9 @@ export default function ProductPage({
                       key={rating}
                       className={classNames(
                         reviews.average > rating
-                          ? "text-gray-900"
+                          ? "text-[#7C4F3F]"
                           : "text-gray-200",
-                        "h-5 w-5 flex-shrink-0"
+                        "h-5 w-5 flex-shrink-0 "
                       )}
                       aria-hidden="true"
                     />
@@ -211,7 +213,7 @@ export default function ProductPage({
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
                 <a
                   href={reviews.href}
-                  className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                  className="ml-3 text-sm font-medium text-[#7C4F3F] hover:text-opacity-80"
                 >
                   {reviews.totalCount} reviews
                 </a>
@@ -264,7 +266,7 @@ export default function ProductPage({
               </div>
               <button
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#2E2522] px-8 py-3 text-base font-medium text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-[#7C4F3F] focus:ring-offset-2"
               >
                 Add to bag
               </button>
@@ -277,8 +279,12 @@ export default function ProductPage({
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                Description
-                {/* <p className="text-base text-gray-900">{product.description}</p> */}
+                <p className="text-base text-gray-900">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Similique accusantium saepe voluptas pariatur ad molestias,
+                  repellendus soluta tempora id ipsa maiores? Totam asperiores
+                  rem magnam, nemo similique vel autem fuga.
+                </p>
               </div>
             </div>
 
@@ -287,12 +293,21 @@ export default function ProductPage({
 
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {/* {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))} */}
-                  Highlights
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">
+                      Lorem ipsum dolor sit amet.
+                    </span>
+                  </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">
+                      Lorem ipsum dolor sit amet.
+                    </span>
+                  </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">
+                      Lorem ipsum dolor sit amet.
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -301,8 +316,12 @@ export default function ProductPage({
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
-                Details
-                {/* <p className="text-sm text-gray-600">{product.details}</p> */}
+                <p className="text-sm text-gray-600">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Nulla officia, suscipit blanditiis libero similique temporibus
+                  cum aut? Est, alias, facere, blanditiis maxime tempora ducimus
+                  atque architecto dolorem eligendi quibusdam ullam.
+                </p>
               </div>
             </div>
           </div>

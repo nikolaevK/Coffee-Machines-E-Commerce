@@ -3,7 +3,6 @@ import getColors from "@/app/actions/GetColors";
 import getProduct from "@/app/actions/GetProduct";
 import getProducts from "@/app/actions/GetProducts";
 import { ColorInterface } from "@/app/utils/types/types";
-import React from "react";
 
 interface ProductHomePageInterface {
   params: { productId: string; categoryId: string };
@@ -43,7 +42,7 @@ export default async function ProductHomePage({
             colorId: color.id,
             name: product.color.name,
             class: `${color.value}`,
-            selectedClass: "ring-gray-400",
+            selectedClass: "ring-[#7C4F3F]",
             categoryId: product.categoryId,
             productId: product.id,
           };
