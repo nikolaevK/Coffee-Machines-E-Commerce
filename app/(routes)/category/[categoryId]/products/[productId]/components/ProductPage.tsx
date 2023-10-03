@@ -80,18 +80,16 @@ export default function ProductPage({
 }: ProductPageInterface) {
   const router = useRouter();
 
-  const product = useMemo(
-    () => products.find((p) => p.id === productId),
-    [products, productId]
-  );
+  const product = products.find((p) => p.id === productId);
 
   if (!product) return <div>Something Went wrong...</div>;
 
-  const selectedProductColor = useMemo(
-    () =>
-      colors.find((c: ColorChoiceInterface) => c.colorId === product.colorId),
-    [colors, product]
+  // Need Memo if there are additional state added in the future of development
+  // Otherwise, no need for memo because functions will run only when new state comes from the server
+  const selectedProductColor = colors.find(
+    (c: ColorChoiceInterface) => c.colorId === product.colorId
   );
+
   const [selectedColor, setSelectedColor] =
     useState<ColorChoiceInterface>(selectedProductColor);
 
