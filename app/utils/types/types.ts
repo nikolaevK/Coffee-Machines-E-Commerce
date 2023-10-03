@@ -57,7 +57,7 @@ export interface ProductInterface {
   category: Record<string, string>;
 }
 
-interface ColorInterface {
+export interface ColorInterface {
   id: string;
   storeId: string;
   name: string;
