@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, MouseEventHandler, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -10,24 +10,22 @@ import {
 } from "@heroicons/react/20/solid";
 import ProductList from "@/app/components/ProductList";
 import { ProductInterface } from "@/app/utils/types/types";
+import { filterColors } from "@/app/utils/helperFuncs/filterColorsInCategory";
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
+  { name: "Newest", current: false },
+  { name: "Price: Low to High", current: false },
+  { name: "Price: High to Low", current: false },
 ];
 const filters = {
   id: "color",
   name: "Color",
   options: [
     { value: "white", label: "White", checked: false },
-    { value: "beige", label: "Beige", checked: false },
-    { value: "blue", label: "Blue", checked: false },
+    { value: "black", label: "Black", checked: false },
     { value: "brown", label: "Brown", checked: false },
     { value: "green", label: "Green", checked: false },
-    { value: "purple", label: "Purple", checked: false },
+    { value: "gray", label: "Gray", checked: false },
   ],
 };
 
@@ -46,15 +44,31 @@ export default function CategoryFilters({
 }: CategoryFiltersInterface) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [colorFilters, setColorFilters] = useState(filters);
+  const [optionsToSort, setOptionsToSort] = useState(sortOptions);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   function onColorFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
     filters.options.forEach((filter) => {
       if (filter.value === e.target.value) filter.checked = e.target.checked;
     });
-
     setColorFilters({ ...filters });
   }
+
+  function pickSortOption(name: string) {
+    sortOptions.forEach((option) => {
+      if (option.name === name) {
+        option.current = true;
+      } else option.current = false;
+    });
+    setOptionsToSort([...sortOptions]);
+  }
+
+  console.log(optionsToSort);
+
+  useEffect(() => {
+    // might need callback
+    setFilteredProducts(filterColors(colorFilters.options, products));
+  }, [colorFilters]);
 
   return (
     <div className="bg-white">
@@ -197,11 +211,12 @@ export default function CategoryFilters({
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
+                      {optionsToSort.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <button
+                              onClick={() => pickSortOption(option.name)}
+                              name={option.name}
                               className={classNames(
                                 option.current
                                   ? "font-medium text-gray-900"
@@ -211,7 +226,7 @@ export default function CategoryFilters({
                               )}
                             >
                               {option.name}
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                       ))}
@@ -277,7 +292,7 @@ export default function CategoryFilters({
             </Disclosure>
           </form>
           <div className="flex-1 p-4">
-            <ProductList products={products} />
+            {filteredProducts && <ProductList products={filteredProducts} />}
           </div>
         </div>
       </div>
