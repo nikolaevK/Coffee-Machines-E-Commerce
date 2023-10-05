@@ -47,7 +47,7 @@ export default async function CategoryBillboard() {
             className="flex flex-col w-full px-4 md:px-8 py-2"
           >
             <div className="flex justify-between md:justify-start items-center gap-4 ">
-              <p className="text-lg md:text-2xl font-bold">{category.name}</p>
+              <p className="text-lg md:text-2xl font-bold ">{category.name}</p>
               <Link
                 href={`/category/${category.id}`}
                 className="text-sm underline underline-offset-4"

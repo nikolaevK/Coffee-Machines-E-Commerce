@@ -6,6 +6,7 @@ import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import Container from "./Container";
+import ShoppingCartModal from "./ShoppingCart";
 
 interface NavRoutesInterface {
   categories: { name: string; id: string }[];
@@ -13,6 +14,7 @@ interface NavRoutesInterface {
 
 export default function NavRoutes({ categories }: NavRoutesInterface) {
   const [openMobileNav, setOpenMobileNav] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   const routes = categories.map((category) => ({
@@ -52,10 +54,16 @@ export default function NavRoutes({ categories }: NavRoutesInterface) {
           {/* Mobile Menu */}
           <MobileNav />
           {/* Shopping Cart Icon */}
-          <button className="ml-auto flex items-center gap-1">
+          <button
+            onClick={() => setOpen(!open)}
+            className="ml-auto flex items-center gap-1"
+          >
             <ShoppingBagIcon className="text-white h-7 w-7" />
             <span>{0}</span>
           </button>
+          {/* TODO: Shopping Cart Global State with Context, 
+          For each product, add +/- functionality to add more that one item to the cart */}
+          <ShoppingCartModal open={open} setOpen={setOpen} />
         </div>
       </Container>
     </div>
@@ -68,15 +76,18 @@ export default function NavRoutes({ categories }: NavRoutesInterface) {
       <nav className={openMobileNav ? openNavCSS : "hidden"}>
         <div className="flex w-full justify-between items-center p-4">
           {/*  Exit menu Icon */}
-          <button onClick={() => setOpenMobileNav((current) => !current)}>
+          <button onClick={() => setOpenMobileNav(!openMobileNav)}>
             <XMarkIcon className="h-7 w-7 text-white" />
           </button>
-          <button className="flex items-center gap-1">
+          <button
+            onClick={() => setOpen(!open)}
+            className="flex items-center gap-1"
+          >
             <ShoppingBagIcon className="text-white h-7 w-7" />
             <span>{0}</span>
           </button>
         </div>
-        <div className="w-full h-full mt-1 bg-white opacity-90 text-[#2E2522] flex flex-col gap-4 p-4">
+        <div className="w-full h-full mt-1 bg-white text-[#2E2522] flex flex-col gap-4 p-4">
           <div>
             <Link
               href="/"
