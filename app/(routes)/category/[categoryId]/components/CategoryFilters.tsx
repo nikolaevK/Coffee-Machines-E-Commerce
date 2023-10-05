@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, MouseEventHandler, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -11,6 +11,7 @@ import {
 import ProductList from "@/app/components/ProductList";
 import { ProductInterface } from "@/app/utils/types/types";
 import { filterColors } from "@/app/utils/helperFuncs/filterColorsInCategory";
+import { sortProducts } from "@/app/utils/helperFuncs/sortProducts";
 
 const sortOptions = [
   { name: "Newest", current: false },
@@ -43,10 +44,12 @@ export default function CategoryFilters({
   categoryName,
 }: CategoryFiltersInterface) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [colorFilters, setColorFilters] = useState(filters);
-  const [optionsToSort, setOptionsToSort] = useState(sortOptions);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [colorFilters, setColorFilters] = useState(filters); // Keeps track of active state of color inputs
+  const [optionsToSort, setOptionsToSort] = useState(sortOptions); // Keeps track of active sorted option
+  const [filteredSortedProducts, setFilteredSortedProducts] =
+    useState(products);
 
+  // Filter by Color
   function onColorFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
     filters.options.forEach((filter) => {
       if (filter.value === e.target.value) filter.checked = e.target.checked;
@@ -54,6 +57,11 @@ export default function CategoryFilters({
     setColorFilters({ ...filters });
   }
 
+  useEffect(() => {
+    setFilteredSortedProducts(filterColors(colorFilters.options, products));
+  }, [colorFilters]);
+
+  // Sort by provided option
   function pickSortOption(name: string) {
     sortOptions.forEach((option) => {
       if (option.name === name) {
@@ -63,12 +71,11 @@ export default function CategoryFilters({
     setOptionsToSort([...sortOptions]);
   }
 
-  console.log(optionsToSort);
-
   useEffect(() => {
-    // might need callback
-    setFilteredProducts(filterColors(colorFilters.options, products));
-  }, [colorFilters]);
+    setFilteredSortedProducts(
+      sortProducts(optionsToSort, filteredSortedProducts)
+    );
+  }, [optionsToSort]);
 
   return (
     <div className="bg-white">
@@ -292,7 +299,9 @@ export default function CategoryFilters({
             </Disclosure>
           </form>
           <div className="flex-1 p-4">
-            {filteredProducts && <ProductList products={filteredProducts} />}
+            {filteredSortedProducts && (
+              <ProductList products={filteredSortedProducts} />
+            )}
           </div>
         </div>
       </div>
