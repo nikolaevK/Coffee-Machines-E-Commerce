@@ -8,7 +8,7 @@ type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
-type CartItem = {
+export type CartItem = {
   id: string;
   quantity: number;
 };
@@ -17,7 +17,7 @@ type ShoppingCartContext = {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  getItemQuantity: (id: string) => number;
+  getItemQuantity: (id: string) => number | null;
   increaseCartQuantity: (id: string) => void;
   decreaseCartQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
@@ -41,7 +41,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
-  // TODO: Figure out how the LocalStorage Hook works
+  if (typeof cartItems === "function") return null;
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -49,11 +49,14 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   );
 
   function getItemQuantity(id: string) {
+    if (typeof cartItems === "function") return null;
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
   function increaseCartQuantity(id: string) {
-    setCartItems((currItems) => {
+    if (typeof setCartItems === "object") return null;
+    // Takes function as a parameter and returns updated CartItem[]
+    setCartItems((currItems: CartItem[]) => {
       if (currItems.find((item) => item.id === id) == null) {
         return [...currItems, { id, quantity: 1 }];
       } else {
@@ -72,7 +75,9 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   }
 
   function decreaseCartQuantity(id: string) {
-    setCartItems((currItems) => {
+    if (typeof setCartItems === "object") return null;
+    // Takes function as a parameter and returns updated CartItem[]
+    setCartItems((currItems: CartItem[]) => {
       if (currItems.find((item) => item.id === id)?.quantity === 1) {
         return currItems.filter((item) => item.id !== id);
       } else {
@@ -91,7 +96,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   }
 
   function removeFromCart(id: string) {
-    setCartItems((currItems) => {
+    if (typeof setCartItems === "object") return null;
+
+    // Takes function as a parameter and returns updated CartItem[]
+    setCartItems((currItems: CartItem[]) => {
       return currItems.filter((item) => item.id !== id);
     });
     toast.error("Item Removed From Cart", {

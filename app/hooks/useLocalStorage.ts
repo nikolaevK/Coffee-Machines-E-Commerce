@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CartItem } from "../context/ShoppingCartContext";
 
 // export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
 //   const [value, setValue] = useState<T>(() => {
@@ -22,8 +23,6 @@ import { useEffect, useState } from "react";
 
 //   return [value, setValue] as [typeof value, typeof setValue];
 // }
-
-// TODO: Figure out how the LocalStorage Hook works
 
 const isServer = typeof window === "undefined";
 
@@ -58,10 +57,11 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value) => {
+  const setValue = <T>(value: T) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =
+        // taking function as a value and passing current store value as a parameter
         value instanceof Function ? value(storedValue) : value;
       // Save state
       setStoredValue(valueToStore);

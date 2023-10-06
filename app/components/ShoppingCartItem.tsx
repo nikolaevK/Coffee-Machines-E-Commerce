@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import getProduct from "../actions/GetProduct";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 import { ProductInterface } from "../utils/types/types";
 
 interface ShoppingCartItemInterface {
@@ -10,13 +9,12 @@ interface ShoppingCartItemInterface {
   quantity: number;
 }
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
-
 export default function ShoppingCartItem({
   productId,
   quantity,
   products,
 }: ShoppingCartItemInterface) {
+  const { removeFromCart } = useShoppingCart();
   const product = products.find((p) => p.id === productId);
   if (!product) return null;
   return (
@@ -49,6 +47,7 @@ export default function ShoppingCartItem({
           <div className="flex">
             <button
               type="button"
+              onClick={() => removeFromCart(product.id)}
               className="font-medium text-[#2E2522] hover:opacity-70"
             >
               Remove
