@@ -1,4 +1,5 @@
 import getCategories from "../actions/getCategories";
+import getProducts from "../actions/GetProducts";
 import { filterNavLinksCategory } from "../utils/helperFuncs/filterNavLinksCategory";
 import NavRoutes from "./NavRoutes";
 // Server Component
@@ -8,11 +9,19 @@ export const revalidate = 0;
 
 export default async function Navbar() {
   const data = await getCategories();
+  const productsData = await getProducts();
 
   // If something wrong with fetching data
-  if (!data) return <div>Something went wrong...</div>;
+  if (!data || !productsData)
+    return <div>Something went wrong in Navbar...</div>;
   // gets necessary data for NavRoutes
   const categories = filterNavLinksCategory(data);
 
-  return <header>{categories && <NavRoutes categories={categories} />}</header>;
+  return (
+    <header>
+      {categories && (
+        <NavRoutes categories={categories} products={productsData} />
+      )}
+    </header>
+  );
 }

@@ -3,47 +3,22 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
+import { useShoppingCart } from "../context/ShoppingCartContext";
+import ShoppingCartItem from "./ShoppingCartItem";
+import { ProductInterface } from "../utils/types/types";
 
 interface ShoppingCartModalInterface {
-  open: boolean;
-  setOpen: (isOpen: boolean) => void;
+  products: ProductInterface[];
 }
 
 export default function ShoppingCartModal({
-  open,
-  setOpen,
+  products,
 }: ShoppingCartModalInterface) {
+  const { isOpen, openCart, closeCart, cartItems } = useShoppingCart();
+
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeCart}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -79,7 +54,7 @@ export default function ShoppingCartModal({
                           <button
                             type="button"
                             className="relative -m-2 p-2 text-[#2E2522] hover:opacity-70"
-                            onClick={() => setOpen(false)}
+                            onClick={closeCart}
                           >
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Close panel</span>
@@ -94,46 +69,13 @@ export default function ShoppingCartModal({
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
                           >
-                            {products.map((product) => (
-                              <li key={product.id} className="flex py-6">
-                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                  <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
-                                    className="h-full w-full object-cover object-center"
-                                  />
-                                </div>
-
-                                <div className="ml-4 flex flex-1 flex-col">
-                                  <div>
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                      <h3>
-                                        <a href={product.href}>
-                                          {product.name}
-                                        </a>
-                                      </h3>
-                                      <p className="ml-4">{product.price}</p>
-                                    </div>
-                                    <p className="mt-1 text-sm text-gray-500">
-                                      {product.color}
-                                    </p>
-                                  </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">
-                                      Qty {product.quantity}
-                                    </p>
-
-                                    <div className="flex">
-                                      <button
-                                        type="button"
-                                        className="font-medium text-[#2E2522] hover:opacity-70"
-                                      >
-                                        Remove
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
+                            {cartItems.map((item) => (
+                              <ShoppingCartItem
+                                key={item.id}
+                                productId={item.id}
+                                quantity={item.quantity}
+                                products={products}
+                              />
                             ))}
                           </ul>
                         </div>
@@ -159,7 +101,7 @@ export default function ShoppingCartModal({
                           <button
                             type="button"
                             className="font-medium text-[#2E2522] hover:opacity-70"
-                            onClick={() => setOpen(false)}
+                            onClick={openCart}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>

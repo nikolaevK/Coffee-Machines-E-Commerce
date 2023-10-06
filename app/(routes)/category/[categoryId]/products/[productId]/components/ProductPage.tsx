@@ -7,6 +7,7 @@ import { ProductInterface } from "@/app/utils/types/types";
 import { ColorChoiceInterface } from "../page";
 import { useRouter } from "next/navigation";
 import MobileImageSlider from "./MobileImageSlider";
+import { useShoppingCart } from "@/app/context/ShoppingCartContext";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -29,6 +30,7 @@ export default function ProductPage({
 }: ProductPageInterface) {
   const router = useRouter();
   const product = products.find((p) => p.id === productId);
+  const { increaseCartQuantity } = useShoppingCart();
 
   if (!product) return <div>Something Went wrong...</div>;
 
@@ -212,8 +214,10 @@ export default function ProductPage({
                   </div>
                 </RadioGroup>
               </div>
+              {/* Add To Cart Button */}
               <button
-                type="submit"
+                type="button"
+                onClick={() => increaseCartQuantity(product.id)}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[#2E2522] px-8 py-3 text-base font-medium text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-[#7C4F3F] focus:ring-offset-2"
               >
                 Add to bag

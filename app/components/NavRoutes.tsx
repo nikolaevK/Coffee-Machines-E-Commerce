@@ -7,14 +7,20 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import Container from "./Container";
 import ShoppingCartModal from "./ShoppingCart";
+import { useShoppingCart } from "../context/ShoppingCartContext";
+import { ProductInterface } from "../utils/types/types";
 
 interface NavRoutesInterface {
   categories: { name: string; id: string }[];
+  products: ProductInterface[];
 }
 
-export default function NavRoutes({ categories }: NavRoutesInterface) {
+export default function NavRoutes({
+  categories,
+  products,
+}: NavRoutesInterface) {
   const [openMobileNav, setOpenMobileNav] = useState(false);
-  const [open, setOpen] = useState(false);
+  const { openCart, cartQuantity } = useShoppingCart();
   const pathname = usePathname();
 
   const routes = categories.map((category) => ({
@@ -55,15 +61,15 @@ export default function NavRoutes({ categories }: NavRoutesInterface) {
           <MobileNav />
           {/* Shopping Cart Icon */}
           <button
-            onClick={() => setOpen(!open)}
+            onClick={openCart}
             className="ml-auto flex items-center gap-1"
           >
             <ShoppingBagIcon className="text-white h-7 w-7" />
-            <span>{0}</span>
+            <span>{cartQuantity}</span>
           </button>
           {/* TODO: Shopping Cart Global State with Context, 
           For each product, add +/- functionality to add more that one item to the cart */}
-          <ShoppingCartModal open={open} setOpen={setOpen} />
+          <ShoppingCartModal products={products} />
         </div>
       </Container>
     </div>
@@ -79,10 +85,7 @@ export default function NavRoutes({ categories }: NavRoutesInterface) {
           <button onClick={() => setOpenMobileNav(!openMobileNav)}>
             <XMarkIcon className="h-7 w-7 text-white" />
           </button>
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex items-center gap-1"
-          >
+          <button onClick={openCart} className="flex items-center gap-1">
             <ShoppingBagIcon className="text-white h-7 w-7" />
             <span>{0}</span>
           </button>
