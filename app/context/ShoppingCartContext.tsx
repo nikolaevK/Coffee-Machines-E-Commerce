@@ -21,6 +21,7 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: string) => void;
   decreaseCartQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
+
   cartQuantity: number;
   cartItems: CartItem[];
 };

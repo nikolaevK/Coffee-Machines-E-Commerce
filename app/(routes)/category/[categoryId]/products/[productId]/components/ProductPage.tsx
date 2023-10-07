@@ -28,16 +28,22 @@ export default function ProductPage({
   products,
   colors,
 }: ProductPageInterface) {
+  const {
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+    cartItems,
+  } = useShoppingCart();
   const router = useRouter();
   const product = products.find((p) => p.id === productId);
-  const { increaseCartQuantity } = useShoppingCart();
+  const productInCart = cartItems.find((p) => p.id === productId);
 
   if (!product) return <div>Something Went wrong...</div>;
 
-  // Need Memo if there are additional state added in the future of development
-  // Otherwise, no need for memo because functions will run only when new state comes from the server
-  const selectedProductColor = colors.find(
-    (c: ColorChoiceInterface) => c.colorId === product.colorId
+  const selectedProductColor = useMemo(
+    () =>
+      colors.find((c: ColorChoiceInterface) => c.colorId === product.colorId),
+    [product]
   );
 
   const [selectedColor, setSelectedColor] =
@@ -214,7 +220,9 @@ export default function ProductPage({
                   </div>
                 </RadioGroup>
               </div>
-              {/* Add To Cart Button */}
+            </form>
+            {/* Add To Cart Button */}
+            {productInCart === undefined ? (
               <button
                 type="button"
                 onClick={() => increaseCartQuantity(product.id)}
@@ -222,7 +230,34 @@ export default function ProductPage({
               >
                 Add to bag
               </button>
-            </form>
+            ) : (
+              <>
+                <div className="flex justify-center items-center gap-2 mt-4">
+                  <button
+                    onClick={() => decreaseCartQuantity(product.id)}
+                    className="flex items-center justify-center h-8 w-8 border-2 rounded-md border-[#2E2522] p-2 text-black"
+                  >
+                    <span>-</span>
+                  </button>
+                  <label className="text-md ">
+                    {productInCart.quantity} in the cart
+                  </label>
+                  <button
+                    onClick={() => increaseCartQuantity(product.id)}
+                    className="flex items-center justify-center h-8 w-8 border-2 rounded-md border-[#2E2522] p-2 text-black"
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeFromCart(product.id)}
+                  className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 px-8 py-3 text-base font-medium text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-[#7C4F3F] focus:ring-offset-2"
+                >
+                  Remove
+                </button>
+              </>
+            )}
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

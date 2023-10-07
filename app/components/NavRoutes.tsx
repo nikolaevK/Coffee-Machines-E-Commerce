@@ -87,7 +87,7 @@ export default function NavRoutes({
           </button>
           <button onClick={openCart} className="flex items-center gap-1">
             <ShoppingBagIcon className="text-white h-7 w-7" />
-            <span>{0}</span>
+            <span>{cartQuantity}</span>
           </button>
         </div>
         <div className="w-full h-full mt-1 bg-white text-[#2E2522] flex flex-col gap-4 p-4">

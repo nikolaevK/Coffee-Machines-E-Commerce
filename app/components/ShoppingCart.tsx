@@ -1,11 +1,12 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import ShoppingCartItem from "./ShoppingCartItem";
 import { ProductInterface } from "../utils/types/types";
+import Link from "next/link";
 
 interface ShoppingCartModalInterface {
   products: ProductInterface[];
@@ -15,6 +16,20 @@ export default function ShoppingCartModal({
   products,
 }: ShoppingCartModalInterface) {
   const { isOpen, openCart, closeCart, cartItems } = useShoppingCart();
+
+  function calculateTotal(products: ProductInterface[]) {
+    const prices: number[] = [];
+    products.forEach((product: ProductInterface) => {
+      for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].id === product.id) {
+          prices.push(product.price * cartItems[i].quantity);
+        }
+      }
+    });
+    return prices.reduce((a, b) => a + b, 0);
+  }
+
+  const cartTotal = useMemo(() => calculateTotal(products), [cartItems]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -85,7 +100,7 @@ export default function ShoppingCartModal({
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>${cartTotal}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
@@ -98,14 +113,14 @@ export default function ShoppingCartModal({
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
                           or <span />
-                          <button
-                            type="button"
+                          <Link
+                            href="/"
+                            onClick={closeCart}
                             className="font-medium text-[#2E2522] hover:opacity-70"
-                            onClick={openCart}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>
-                          </button>
+                          </Link>
                         </p>
                       </div>
                     </div>
