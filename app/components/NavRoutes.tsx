@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import Container from "./Container";
 import ShoppingCartModal from "./ShoppingCart";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { ProductInterface } from "../utils/types/types";
+import toast from "react-hot-toast";
 
 interface NavRoutesInterface {
   categories: { name: string; id: string }[];
@@ -22,12 +23,21 @@ export default function NavRoutes({
   const [openMobileNav, setOpenMobileNav] = useState(false);
   const { openCart, cartQuantity } = useShoppingCart();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const routes = categories.map((category) => ({
     href: `/category/${category.id}`,
     label: category.name,
     active: pathname === `/category/${category.id}`,
   }));
+
+  // Stripe Success or Error when Checking out
+  useEffect(() => {
+    if (searchParams.get("canceled")) {
+      toast.error("Something Went Wrong...");
+      openCart();
+    }
+  }, [searchParams]);
 
   return (
     <div className="border-b bg-[#2E2522] text-white">
@@ -67,8 +77,7 @@ export default function NavRoutes({
             <ShoppingBagIcon className="text-white h-7 w-7" />
             <span>{cartQuantity}</span>
           </button>
-          {/* TODO: Shopping Cart Global State with Context, 
-          For each product, add +/- functionality to add more that one item to the cart */}
+          {/* Shopping Cart */}
           <ShoppingCartModal products={products} />
         </div>
       </Container>

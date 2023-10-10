@@ -1,12 +1,17 @@
 "use client";
 
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import ShoppingCartItem from "./ShoppingCartItem";
 import { ProductInterface } from "../utils/types/types";
 import Link from "next/link";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
+
+const URL = `${process.env.NEXT_PUBLIC_API_URL}/checkout`;
 
 interface ShoppingCartModalInterface {
   products: ProductInterface[];
@@ -30,6 +35,13 @@ export default function ShoppingCartModal({
   }
 
   const cartTotal = useMemo(() => calculateTotal(products), [cartItems]);
+
+  async function checkOutUsingStripe() {
+    toast.loading("Loading Stripe...");
+    const response = await axios.post(URL, { cartItems });
+    toast.dismiss();
+    window.location = response.data.url;
+  }
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -106,7 +118,10 @@ export default function ShoppingCartModal({
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6 flex items-center justify-center">
-                        <button className="w-full rounded-md border border-transparent bg-[#2E2522] px-6 py-3 text-base font-medium text-white shadow-sm hover:opacity-70">
+                        <button
+                          onClick={checkOutUsingStripe}
+                          className="w-full rounded-md border border-transparent bg-[#2E2522] px-6 py-3 text-base font-medium text-white shadow-sm hover:opacity-70"
+                        >
                           Checkout
                         </button>
                       </div>
