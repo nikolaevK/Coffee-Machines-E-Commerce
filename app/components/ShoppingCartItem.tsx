@@ -14,7 +14,7 @@ export default function ShoppingCartItem({
   quantity,
   products,
 }: ShoppingCartItemInterface) {
-  const { removeFromCart } = useShoppingCart();
+  const { removeFromCart, decreaseCartQuantity } = useShoppingCart();
   const product = products.find((p) => p.id === productId);
   if (!product) return null;
 
@@ -45,7 +45,16 @@ export default function ShoppingCartItem({
         <div className="flex flex-1 items-end justify-between text-sm">
           <p className="text-gray-500">Qty {quantity}</p>
 
-          <div className="flex">
+          <div className="flex justify-center items-center gap-2">
+            {quantity > 1 && (
+              <button
+                onClick={() => decreaseCartQuantity(product.id)}
+                className="flex items-center justify-center border-2 border-red-400 text-red-400 rounded-sm h-4 w-4 "
+              >
+                -
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => removeFromCart(product.id)}

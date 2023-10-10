@@ -78,7 +78,14 @@ export default async function CategoryBillboard() {
             {category.subcategories && (
               <Subcategories subcategories={category.subcategories} />
             )}
-            <ProductList products={category.products} />
+            <ProductList
+              // Making sure to display no more than 8 products under category on the HomePage
+              products={
+                category.products.length <= 8
+                  ? category.products
+                  : category.products.slice(0, 8)
+              }
+            />
             <div className="text-center my-14  text-white">
               <Link
                 href={`category/${category.id}`}

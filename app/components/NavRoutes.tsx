@@ -40,7 +40,7 @@ export default function NavRoutes({
             <Bars3Icon className="h-7 w-7" />
           </button>
           <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
-            <p className="font-bold text-lg hidden md:block">Coffee</p>
+            <p className="font-bold text-lg hidden md:block">Home</p>
           </Link>
           {/* Large screen Nav Links */}
           <nav className="hidden md:flex md:mx-6 items-center gap-x-4 lg:gap-x-6">
@@ -97,7 +97,7 @@ export default function NavRoutes({
               className="text-md font-semibold transition-colors"
               onClick={() => setOpenMobileNav((current) => !current)}
             >
-              Coffee
+              Home
             </Link>
             <hr className="mt-4" />
           </div>

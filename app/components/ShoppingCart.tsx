@@ -18,15 +18,15 @@ export default function ShoppingCartModal({
   const { isOpen, openCart, closeCart, cartItems } = useShoppingCart();
 
   function calculateTotal(products: ProductInterface[]) {
-    const prices: number[] = [];
+    let price: number = 0;
     products.forEach((product: ProductInterface) => {
       for (let i = 0; i < cartItems.length; i++) {
         if (cartItems[i].id === product.id) {
-          prices.push(product.price * cartItems[i].quantity);
+          price = price + product.price * cartItems[i].quantity;
         }
       }
     });
-    return prices.reduce((a, b) => a + b, 0);
+    return price;
   }
 
   const cartTotal = useMemo(() => calculateTotal(products), [cartItems]);
