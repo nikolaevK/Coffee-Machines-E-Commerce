@@ -18,7 +18,7 @@ export default function ProductList({ products }: ProductListInterface) {
                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"
               />
             </div>
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 flex justify-between gap-2">
               <div>
                 <h3 className="text-sm text-gray-700">
                   <a
@@ -33,7 +33,7 @@ export default function ProductList({ products }: ProductListInterface) {
                 </p>
               </div>
               <p className="text-sm text-gray-900 font-bold">
-                ${product.price}
+                ${parseFloat(product.price).toFixed(2)}
               </p>
             </div>
           </div>

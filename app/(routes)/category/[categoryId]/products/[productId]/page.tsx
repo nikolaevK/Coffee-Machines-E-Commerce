@@ -31,7 +31,9 @@ export default async function ProductHomePage({
   }
 
   const products = allProducts.filter(
-    (product) => product.name === selectedProduct.name
+    (product) =>
+      product.name.split(" ")[0] === selectedProduct.name.split(" ")[0] &&
+      product.price === selectedProduct.price
   );
 
   const colors = allColors.reduce(

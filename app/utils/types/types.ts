@@ -46,7 +46,7 @@ export interface ProductInterface {
   name: string;
   Archived: boolean;
   isFeatured: boolean;
-  price: number;
+  price: string;
   categoryId: string;
   date: string;
   colorId: string;

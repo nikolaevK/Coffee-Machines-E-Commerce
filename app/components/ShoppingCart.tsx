@@ -27,7 +27,7 @@ export default function ShoppingCartModal({
     products.forEach((product: ProductInterface) => {
       for (let i = 0; i < cartItems.length; i++) {
         if (cartItems[i].id === product.id) {
-          price = price + product.price * cartItems[i].quantity;
+          price = price + parseFloat(product.price) * cartItems[i].quantity;
         }
       }
     });
@@ -37,6 +37,10 @@ export default function ShoppingCartModal({
   const cartTotal = useMemo(() => calculateTotal(products), [cartItems]);
 
   async function checkOutUsingStripe() {
+    if (cartItems.length === 0) {
+      toast.error("Please add something to cart");
+      return;
+    }
     toast.loading("Loading Stripe...");
     const response = await axios.post(URL, { cartItems });
     toast.dismiss();

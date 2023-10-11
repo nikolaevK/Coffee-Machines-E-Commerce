@@ -21,7 +21,7 @@ export default function NavRoutes({
   products,
 }: NavRoutesInterface) {
   const [openMobileNav, setOpenMobileNav] = useState(false);
-  const { openCart, cartQuantity } = useShoppingCart();
+  const { openCart, cartQuantity, clearCartItems } = useShoppingCart();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -33,6 +33,10 @@ export default function NavRoutes({
 
   // Stripe Success or Error when Checking out
   useEffect(() => {
+    if (searchParams.get("success")) {
+      toast.success("Transaction successfully completed");
+      clearCartItems();
+    }
     if (searchParams.get("canceled")) {
       toast.error("Something Went Wrong...");
       openCart();
