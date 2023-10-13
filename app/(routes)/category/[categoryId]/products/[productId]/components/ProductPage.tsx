@@ -9,8 +9,6 @@ import { useRouter } from "next/navigation";
 import MobileImageSlider from "./MobileImageSlider";
 import { useShoppingCart } from "@/app/context/ShoppingCartContext";
 
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -34,6 +32,11 @@ export default function ProductPage({
     removeFromCart,
     cartItems,
   } = useShoppingCart();
+  const [reviews, setReviews] = useState({
+    href: "#",
+    average: 4,
+    totalCount: 117,
+  });
   const router = useRouter();
   const product = products.find((p) => p.id === productId);
   const productInCart = cartItems.find((p) => p.id === productId);
@@ -54,6 +57,14 @@ export default function ProductPage({
       `/category/${selectedColor.categoryId}/products/${selectedColor.productId}`
     );
   }, [selectedColor.colorId]);
+
+  useEffect(() => {
+    setReviews((prev) => ({
+      ...prev,
+      average: Math.max(Math.round(Math.random() * 5), 3),
+      totalCount: Math.max(Math.round(Math.random() * 110), 35),
+    }));
+  }, []);
 
   return (
     <div className="bg-white">
