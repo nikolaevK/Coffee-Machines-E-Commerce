@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import getCategories from "@/app/actions/getCategories";
+import getCategories from "@/app/actions/GetCategories";
 import getHomeBillboard from "@/app/actions/GetHomeBillboard";
 import {
   CategoryInterface,

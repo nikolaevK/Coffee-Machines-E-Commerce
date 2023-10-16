@@ -1,4 +1,4 @@
-import getCategories from "@/app/actions/getCategories";
+import getCategories from "@/app/actions/GetCategories";
 import getProducts from "@/app/actions/GetProducts";
 import { filterNavLinksCategory } from "../utils/helperFuncs/filterNavLinksCategory";
 import NavRoutes from "./NavRoutes";
