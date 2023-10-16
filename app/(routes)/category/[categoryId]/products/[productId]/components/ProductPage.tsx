@@ -39,7 +39,10 @@ export default function ProductPage({
     totalCount: 0,
   });
   const router = useRouter();
-  const product = products.find((p) => p.id === productId)!;
+  const product = useMemo(
+    () => products.find((p) => p.id === productId)!,
+    [productId, products]
+  );
   const productInCart = cartItems.find((p) => p.id === productId);
 
   const selectedProductColor = useMemo(
