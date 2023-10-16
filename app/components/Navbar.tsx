@@ -1,5 +1,5 @@
-import getCategories from "../actions/getCategories";
-import getProducts from "../actions/GetProducts";
+import getCategories from "@/app/actions/getCategories";
+import getProducts from "@/app/actions/GetProducts";
 import { filterNavLinksCategory } from "../utils/helperFuncs/filterNavLinksCategory";
 import NavRoutes from "./NavRoutes";
 // Server Component

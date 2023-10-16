@@ -35,8 +35,8 @@ export default function ProductPage({
   } = useShoppingCart();
   const [reviews, setReviews] = useState({
     href: "#",
-    average: 4,
-    totalCount: 117,
+    average: 0,
+    totalCount: 0,
   });
   const router = useRouter();
   const product = products.find((p) => p.id === productId)!;
