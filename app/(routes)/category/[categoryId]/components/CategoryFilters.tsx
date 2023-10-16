@@ -77,7 +77,7 @@ export default function CategoryFilters({
   }
 
   useEffect(() => {
-    setFilteredSortedProducts(() =>
+    setFilteredSortedProducts(
       sortProducts(optionsToSort, filteredSortedProducts)
     );
   }, [optionsToSort]);
