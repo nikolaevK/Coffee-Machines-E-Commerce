@@ -48,7 +48,7 @@ export default function MobileImageSlider({
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="flex justify-center aspect-1 rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 hover:cursor-pointer">
+      <div className="flex justify-center aspect-1 rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75">
         <Image
           width={500}
           height={500}
