@@ -8,6 +8,7 @@ import { ColorChoiceInterface } from "../page";
 import { useRouter } from "next/navigation";
 import MobileImageSlider from "./MobileImageSlider";
 import { useShoppingCart } from "@/app/context/ShoppingCartContext";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -38,15 +39,13 @@ export default function ProductPage({
     totalCount: 117,
   });
   const router = useRouter();
-  const product = products.find((p) => p.id === productId);
+  const product = products.find((p) => p.id === productId)!;
   const productInCart = cartItems.find((p) => p.id === productId);
-
-  if (!product) return <div>Something Went wrong...</div>;
 
   const selectedProductColor = useMemo(
     () =>
       colors.find((c: ColorChoiceInterface) => c.colorId === product.colorId),
-    [product]
+    [product, colors]
   );
 
   const [selectedColor, setSelectedColor] =
@@ -56,7 +55,7 @@ export default function ProductPage({
     router.push(
       `/category/${selectedColor.categoryId}/products/${selectedColor.productId}`
     );
-  }, [selectedColor.colorId]);
+  }, [selectedColor.colorId, router]);
 
   useEffect(() => {
     setReviews((prev) => ({
@@ -110,7 +109,9 @@ export default function ProductPage({
         {/* Image gallery */}
         <div className="hidden mx-auto mt-6 max-w-2xl sm:px-6 md:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <img
+            <Image
+              height={500}
+              width={500}
               src={product.images[0].url}
               alt="Product Image"
               className="h-full w-full object-cover object-center"
@@ -119,14 +120,18 @@ export default function ProductPage({
 
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
+              <Image
+                width={500}
+                height={500}
                 src={product.images[1]?.url || ""}
                 alt="Product Image"
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
+              <Image
+                width={500}
+                height={500}
                 src={product.images[2]?.url || ""}
                 alt="Product Image"
                 className="h-full w-full object-cover object-center"
@@ -134,7 +139,9 @@ export default function ProductPage({
             </div>
           </div>
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
+            <Image
+              height={500}
+              width={500}
               src={product.images[3]?.url || ""}
               alt="Product Image"
               className="h-full w-full object-cover object-center"

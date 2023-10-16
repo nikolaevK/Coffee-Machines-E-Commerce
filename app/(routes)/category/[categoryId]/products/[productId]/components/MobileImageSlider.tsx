@@ -1,5 +1,6 @@
 "use client";
 import { ImagesInterface } from "@/app/utils/types/types";
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 
 interface MobileImageSliderInterface {
@@ -48,10 +49,12 @@ export default function MobileImageSlider({
       onTouchEnd={handleTouchEnd}
     >
       <div className="flex justify-center aspect-1 rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 hover:cursor-pointer">
-        <img
+        <Image
+          width={500}
+          height={500}
           src={images[index].url}
           alt="img"
-          className=" object-cover object-center lg:h-full lg:w-full"
+          className="object-cover object-center lg:h-full lg:w-full"
         />
         <div className="absolute bottom-2  flex justify-center items-center gap-1 bg-transparent">
           {images.map((image, idx) => (

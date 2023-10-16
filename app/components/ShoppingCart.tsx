@@ -20,7 +20,7 @@ interface ShoppingCartModalInterface {
 export default function ShoppingCartModal({
   products,
 }: ShoppingCartModalInterface) {
-  const { isOpen, openCart, closeCart, cartItems } = useShoppingCart();
+  const { isOpen, closeCart, cartItems } = useShoppingCart();
 
   function calculateTotal(products: ProductInterface[]) {
     let price: number = 0;

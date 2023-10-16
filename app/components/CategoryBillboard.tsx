@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import getCategories from "../actions/getCategories";
 import getHomeBillboard from "../actions/GetHomeBillboard";
@@ -67,7 +68,9 @@ export default async function CategoryBillboard() {
                   </span>
                 </div>
                 <div className="w-full">
-                  <img
+                  <Image
+                    height={500}
+                    width={500}
                     src={category?.imageUrl}
                     alt="img"
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"

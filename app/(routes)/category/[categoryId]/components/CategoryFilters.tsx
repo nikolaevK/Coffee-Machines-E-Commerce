@@ -46,7 +46,7 @@ export default function CategoryFilters({
         };
       }),
     };
-  }, []);
+  }, [colors]);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [colorFilters, setColorFilters] = useState(filters); // Keeps track of active state of color inputs
@@ -64,7 +64,7 @@ export default function CategoryFilters({
 
   useEffect(() => {
     setFilteredSortedProducts(filterColors(colorFilters.options, products));
-  }, [colorFilters]);
+  }, [colorFilters, products]);
 
   // Sort by provided option
   function pickSortOption(name: string) {
@@ -77,7 +77,7 @@ export default function CategoryFilters({
   }
 
   useEffect(() => {
-    setFilteredSortedProducts(
+    setFilteredSortedProducts(() =>
       sortProducts(optionsToSort, filteredSortedProducts)
     );
   }, [optionsToSort]);

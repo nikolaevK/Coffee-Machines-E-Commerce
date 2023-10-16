@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { ProductInterface } from "../utils/types/types";
 
@@ -12,7 +13,9 @@ export default function ProductList({ products }: ProductListInterface) {
         {products.map((product) => (
           <div key={product.id} className="group relative">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-              <img
+              <Image
+                height={500}
+                width={500}
                 src={product.images[0].url}
                 alt="Img"
                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"

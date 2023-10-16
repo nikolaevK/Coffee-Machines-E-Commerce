@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 interface FeaturedCategory {
@@ -26,7 +27,9 @@ export default function FeaturedCategories({
             >
               <div className="group relative">
                 <div className="h-40 w-40 aspect-1 rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 hover:cursor-pointer lg:h-44 lg:w-52">
-                  <img
+                  <Image
+                    height={500}
+                    width={500}
                     src={product.url}
                     alt="img"
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
