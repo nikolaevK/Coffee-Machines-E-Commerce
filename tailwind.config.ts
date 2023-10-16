@@ -32,5 +32,8 @@ module.exports = {
       },
     },
   },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   plugins: [aspectRatio, forms],
 };
