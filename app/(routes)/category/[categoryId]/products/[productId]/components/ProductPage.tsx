@@ -61,7 +61,7 @@ export default function ProductPage({
   useEffect(() => {
     setReviews((prev) => ({
       ...prev,
-      average: Math.max(Math.round(Math.random() * 5), 3),
+      average: Math.max(Math.round(Math.random() * 5), 2),
       totalCount: Math.max(Math.round(Math.random() * 110), 35),
     }));
   }, []);

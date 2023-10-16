@@ -1,4 +1,5 @@
 import getCategory from "@/app/actions/GetCategory";
+import getColors from "@/app/actions/GetColors";
 import Container from "@/app/components/Container";
 
 import CategoryFilters from "./components/CategoryFilters";
@@ -13,7 +14,9 @@ export default async function category({
   params: { categoryId },
 }: CategoryComponentInterface) {
   const category = await getCategory(categoryId);
-  if (!category) return <div>Something went wrong loading category...</div>;
+  const colors = await getColors();
+  if (!category || !colors)
+    return <div>Something went wrong loading category...</div>;
 
   return (
     <Container>
@@ -21,6 +24,7 @@ export default async function category({
         <CategoryFilters
           products={category.products}
           categoryName={category.name}
+          colors={colors}
         />
       </div>
     </Container>

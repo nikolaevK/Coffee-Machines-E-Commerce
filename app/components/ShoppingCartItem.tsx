@@ -38,7 +38,9 @@ export default function ShoppingCartItem({
                 {product.name}
               </a>
             </h3>
-            <p className="ml-4">$ {parseFloat(product.price).toFixed(2)}</p>
+            <p className="ml-4 text-sm text-neutral-500">
+              ${parseFloat(product.price).toFixed(2)}
+            </p>
           </div>
           <p className="mt-1 text-sm text-gray-500">{product.color.name}</p>
         </div>

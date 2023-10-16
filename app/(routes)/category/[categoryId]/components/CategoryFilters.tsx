@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -9,7 +9,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import ProductList from "@/app/components/ProductList";
-import { ProductInterface } from "@/app/utils/types/types";
+import { ColorInterface, ProductInterface } from "@/app/utils/types/types";
 import { filterColors } from "@/app/utils/helperFuncs/filterColorsInCategory";
 import { sortProducts } from "@/app/utils/helperFuncs/sortProducts";
 
@@ -18,17 +18,6 @@ const sortOptions = [
   { name: "Price: Low to High", current: false },
   { name: "Price: High to Low", current: false },
 ];
-const filters = {
-  id: "color",
-  name: "Color",
-  options: [
-    { value: "white", label: "White", checked: false },
-    { value: "black", label: "Black", checked: false },
-    { value: "brown", label: "Brown", checked: false },
-    { value: "green", label: "Green", checked: false },
-    { value: "gray", label: "Gray", checked: false },
-  ],
-};
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -36,13 +25,29 @@ function classNames(...classes: string[]) {
 
 interface CategoryFiltersInterface {
   products: ProductInterface[];
+  colors: ColorInterface[];
   categoryName: string;
 }
 
 export default function CategoryFilters({
   products,
+  colors,
   categoryName,
 }: CategoryFiltersInterface) {
+  const filters = useMemo(() => {
+    return {
+      id: "color",
+      name: "Color",
+      options: colors.map((color) => {
+        return {
+          value: color.name.toLowerCase(),
+          label: color.name.charAt(0).toUpperCase() + color.name.slice(1),
+          checked: false,
+        };
+      }),
+    };
+  }, []);
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [colorFilters, setColorFilters] = useState(filters); // Keeps track of active state of color inputs
   const [optionsToSort, setOptionsToSort] = useState(sortOptions); // Keeps track of active sorted option
