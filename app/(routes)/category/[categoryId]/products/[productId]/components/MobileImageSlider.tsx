@@ -43,7 +43,7 @@ export default function MobileImageSlider({
 
   return (
     <div
-      className="relative md:hidden"
+      className="relative md:hidden "
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

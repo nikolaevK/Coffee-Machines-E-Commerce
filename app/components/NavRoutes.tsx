@@ -104,7 +104,7 @@ export default function NavRoutes({
           </button>
         </div>
         <div className="w-full h-full mt-1 bg-white text-[#2E2522] flex flex-col gap-4 p-4">
-          <div>
+          <div className="mt-10">
             <Link
               href="/"
               className="text-md font-semibold transition-colors"
