@@ -8,7 +8,6 @@ import ShoppingCartItem from "./ShoppingCartItem";
 import { ProductInterface } from "../utils/types/types";
 import Link from "next/link";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/checkout`;
