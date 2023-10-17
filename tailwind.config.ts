@@ -32,7 +32,7 @@ module.exports = {
       },
     },
   },
-  // removes hover from mobile
+  // removes hover from mobile, works only wit pointers
   future: {
     hoverOnlyWhenSupported: true,
   },
