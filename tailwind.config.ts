@@ -32,6 +32,7 @@ module.exports = {
       },
     },
   },
+  // removes hover from mobile
   future: {
     hoverOnlyWhenSupported: true,
   },
