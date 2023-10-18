@@ -27,7 +27,6 @@ The E-Commerce Website is a feature-rich online shopping platform that offers a 
 - **Color Palette**: Define and manage the color options for products.
 - **Sales Analytics**: Monitor sales and revenue through a comprehensive dashboard.
 - **Order Management**: View and manage customer orders.
-- **User Access Control**: Control user access and permissions within the dashboard.
 
 ## Technologies Used
 
