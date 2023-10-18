@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-Commerce Website
 
-## Getting Started
+A modern e-commerce website built with Next.js, TypeScript, PlanetScale, Prisma, MySQL, Stripe, and Tailwind CSS, featuring a powerful web application for configuration and sales tracking.
 
-First, run the development server:
+**Live Demo**: [https://coffee-machines-e-commerce.vercel.app](https://coffee-machines-e-commerce.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## General Information
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The E-Commerce Website is a feature-rich online shopping platform that offers a seamless and secure shopping experience. In addition to standard shopping features, it includes an advanced web application for store management and sales tracking. Users can customize the appearance of their online store, upload products, create categories, define product colors, and monitor sales and revenue.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### E-Commerce Website
 
-## Learn More
+- **User Registration and Authentication**: Customers can create accounts and securely log in to make purchases.
+- **Product Catalog**: A comprehensive catalog of products with images, descriptions, and pricing.
+- **Shopping Cart**: Users can add products to their cart and proceed to checkout.
+- **Secure Payments**: Integration with Stripe for safe and convenient payment processing.
+- **Order Tracking**: Customers can track the status of their orders.
 
-To learn more about Next.js, take a look at the following resources:
+### Web Application (Dashboard)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Store Configuration**: Users can customize the appearance of their online store, including themes, fonts, and layouts.
+- **Product Management**: Upload, edit, and manage product listings.
+- **Category Management**: Create and organize product categories.
+- **Color Palette**: Define and manage the color options for products.
+- **Sales Analytics**: Monitor sales and revenue through a comprehensive dashboard.
+- **Order Management**: View and manage customer orders.
+- **User Access Control**: Control user access and permissions within the dashboard.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+- React: A popular JavaScript library for building user interfaces.
+- Next.js: A React framework for building server-side rendered and statically generated web applications.
+- Prisma: A modern database toolkit for working with databases, including MySQL.
+- TypeScript: A typed superset of JavaScript that enhances code quality and developer productivity.
+- SQL: A relational database for storing and retrieving structured data.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/nextjs/nextjs-original-wordmark.svg" title="NextJs" alt="NextJs" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg" title="TypeScript" alt="TypeScript" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/tailwindcss/tailwindcss-original-wordmark.svg" title="Tailwind" alt="Tailwind" width="40" height="40"/>&nbsp;
+    <img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg"  title="MySQL" alt="MySQL" width="40" height="40"/>&nbsp;
+</div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+
+- Inspired by Antonio: https://github.com/AntonioErdeljac
