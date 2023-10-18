@@ -12,13 +12,14 @@ The E-Commerce Website is a feature-rich online shopping platform that offers a 
 
 ### E-Commerce Website
 
-- **User Registration and Authentication**: Customers can create accounts and securely log in to make purchases.
 - **Product Catalog**: A comprehensive catalog of products with images, descriptions, and pricing.
 - **Shopping Cart**: Users can add products to their cart and proceed to checkout.
 - **Secure Payments**: Integration with Stripe for safe and convenient payment processing.
 - **Order Tracking**: Customers can track the status of their orders.
 
 ### Web Application (Dashboard)
+
+**Live Demo**: [https://e-commerce-dash.vercel.app/38265c5e-cf1c-425a-b9de-dc3eab0e3d2f](https://e-commerce-dash.vercel.app/38265c5e-cf1c-425a-b9de-dc3eab0e3d2f/)
 
 - **Store Configuration**: Users can customize the appearance of their online store, including themes, fonts, and layouts.
 - **Product Management**: Upload, edit, and manage product listings.
