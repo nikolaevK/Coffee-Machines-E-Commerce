@@ -19,6 +19,7 @@ export function filterColors(
   );
 
   if (colors.length === 0) return products;
+
   const filteredProducts = products.filter((product) =>
     colors.includes(product.color.name.toLowerCase())
   );

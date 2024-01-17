@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -51,8 +51,16 @@ export default function CategoryFilters({
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [colorFilters, setColorFilters] = useState(filters); // Keeps track of active state of color inputs
   const [optionsToSort, setOptionsToSort] = useState(sortOptions); // Keeps track of active sorted option
-  const [filteredSortedProducts, setFilteredSortedProducts] =
-    useState(products);
+
+  let filteredSortedProducts: ProductInterface[] = useMemo(
+    () => filterColors(colorFilters.options, products),
+    [colorFilters, products]
+  );
+
+  filteredSortedProducts = useMemo(
+    () => sortProducts(optionsToSort, filteredSortedProducts),
+    [optionsToSort, filteredSortedProducts]
+  );
 
   // Filter by Color
   function onColorFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -61,10 +69,6 @@ export default function CategoryFilters({
     });
     setColorFilters({ ...filters });
   }
-
-  useEffect(() => {
-    setFilteredSortedProducts(filterColors(colorFilters.options, products));
-  }, [colorFilters, products]);
 
   // Sort by provided option
   function pickSortOption(name: string) {
@@ -75,12 +79,6 @@ export default function CategoryFilters({
     });
     setOptionsToSort([...sortOptions]);
   }
-
-  useEffect(() => {
-    setFilteredSortedProducts(
-      sortProducts(optionsToSort, filteredSortedProducts)
-    );
-  }, [optionsToSort]);
 
   return (
     <div className="bg-white">

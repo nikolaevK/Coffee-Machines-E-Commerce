@@ -12,29 +12,28 @@ export function sortProducts(
   const chosenSortOption = sortOptions.find(
     (option) => option.current === true
   );
-  let sortedProducts;
+
   switch (chosenSortOption?.name) {
     case "Newest":
-      sortedProducts = products.sort(
+      products.sort(
         // Unary plus (+) converts an operand ( new Date() ) into a number.
         (a: ProductInterface, b: ProductInterface) =>
           +new Date(b.createdAt) - +new Date(a.createdAt)
       );
       break;
     case "Price: Low to High":
-      sortedProducts = products.sort(
-        (a: ProductInterface, b: ProductInterface) => a.price - b.price
+      products.sort(
+        (a: ProductInterface, b: ProductInterface) =>
+          parseFloat(a.price) - parseFloat(b.price)
       );
       break;
     case "Price: High to Low":
-      sortedProducts = products.sort(
-        (a: ProductInterface, b: ProductInterface) => b.price - a.price
+      products.sort(
+        (a: ProductInterface, b: ProductInterface) =>
+          parseFloat(b.price) - parseFloat(a.price)
       );
-      break;
-    default:
-      sortedProducts = products;
       break;
   }
 
-  return [...sortedProducts];
+  return products;
 }
